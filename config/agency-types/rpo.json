@@ -1,0 +1,13 @@
+{
+  "agencyType": "rpo",
+  "displayName": "RPO (Recruitment Process Outsourcing)",
+  "description": "Outsourced recruiting function managing hiring for client organizations on retainer",
+  "defaultPainPoints": ["volume-screening", "multi-client-management", "sla-compliance", "reporting-overhead", "recruiter-utilization"],
+  "recommendedAgents": ["resume-screening", "daily-briefing", "candidate-sourcing", "compliance-monitoring"],
+  "scoringRubric": "general",
+  "keyMetrics": ["cost-per-hire", "time-to-fill", "sla-compliance-rate", "hiring-manager-satisfaction"],
+  "commonATS": ["bullhorn", "icims", "greenhouse"],
+  "complianceLevel": "moderate",
+  "typicalTeamSize": { "min": 15, "max": 200 },
+  "notes": "Multi-client management is the key challenge. Each client has different processes, ATS access, and SLAs. Reporting and analytics are critical for contract renewals."
+}

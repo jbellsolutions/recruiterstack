@@ -1,0 +1,13 @@
+{
+  "agencyType": "temp-contract",
+  "displayName": "Temporary / Contract Staffing",
+  "description": "Short-term and contract placements with markup-based revenue and employer-of-record responsibilities",
+  "defaultPainPoints": ["no-show-rates", "timecard-collection", "credential-tracking", "onboarding-speed", "cash-flow-pressure"],
+  "recommendedAgents": ["compliance-monitoring", "daily-briefing", "candidate-sourcing", "resume-screening"],
+  "scoringRubric": "general",
+  "keyMetrics": ["no-show-rate", "timecard-on-time-rate", "fill-rate", "gross-margin", "worker-retention"],
+  "commonATS": ["bullhorn", "avionte", "tempworks"],
+  "complianceLevel": "moderate",
+  "typicalTeamSize": { "min": 10, "max": 100 },
+  "notes": "Cash flow is critical — timecards drive invoicing drive payroll. No-show prevention and onboarding speed are highest-impact automations."
+}

@@ -1,0 +1,13 @@
+{
+  "agencyType": "contingency",
+  "displayName": "Contingency Staffing",
+  "description": "Fee-based placement agencies earning 15-25% of first-year salary on successful hires",
+  "defaultPainPoints": ["speed-to-submit", "candidate-ghosting", "recruiter-burnout", "database-decay", "client-acquisition"],
+  "recommendedAgents": ["resume-screening", "candidate-sourcing", "client-outreach", "daily-briefing"],
+  "scoringRubric": "general",
+  "keyMetrics": ["time-to-submit", "fill-rate", "placement-rate", "gross-margin"],
+  "commonATS": ["bullhorn", "lever", "crelate"],
+  "complianceLevel": "standard",
+  "typicalTeamSize": { "min": 5, "max": 50 },
+  "notes": "Speed is everything. First to submit wins 60%+ of placements. Focus on screening speed and sourcing depth."
+}

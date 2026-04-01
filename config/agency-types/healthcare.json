@@ -1,0 +1,14 @@
+{
+  "agencyType": "healthcare",
+  "displayName": "Healthcare Staffing",
+  "description": "Travel nursing, allied health, and per diem medical staffing with strict compliance requirements",
+  "defaultPainPoints": ["compliance-risk", "credential-management", "speed-to-submit", "candidate-ghosting", "multi-state-licensing"],
+  "recommendedAgents": ["compliance-monitoring", "resume-screening", "candidate-sourcing", "daily-briefing"],
+  "scoringRubric": "healthcare",
+  "keyMetrics": ["credential-compliance-rate", "time-to-credential", "fill-rate", "nurse-retention-rate"],
+  "commonATS": ["bullhorn", "jobadder"],
+  "complianceLevel": "strict",
+  "complianceNotes": "NLC compact states (41+), Joint Commission, CMS requirements, HIPAA, state-specific license verification",
+  "typicalTeamSize": { "min": 10, "max": 100 },
+  "notes": "Compliance is the #1 priority. A single credential lapse can result in $10K-$100K fines. Credential monitoring agent should be activated first."
+}

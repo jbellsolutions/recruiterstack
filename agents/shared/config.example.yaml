@@ -1,0 +1,38 @@
+# RecruiterStack Agent Configuration
+# Copy to config.yaml and fill in your values
+
+# ATS Connection (choose one)
+ats:
+  type: mock  # bullhorn | lever | greenhouse | mock
+
+  # Bullhorn (OAuth 2.0)
+  bullhorn:
+    client_id: ""
+    client_secret: ""
+    username: ""
+    password: ""
+
+  # Lever (API Key)
+  lever:
+    api_key: ""
+
+  # Greenhouse (API Key)
+  greenhouse:
+    api_key: ""
+
+# Anthropic API (required for AI-powered agents)
+anthropic:
+  api_key: ""
+
+# Agency Info (used in outreach templates)
+agency:
+  name: "Your Agency Name"
+  specialty: "IT Staffing"  # healthcare, light-industrial, tech, executive, etc.
+  website: ""
+  phone: ""
+
+# Notifications (optional)
+notifications:
+  slack_webhook: ""
+  email_from: ""
+  email_smtp_host: ""

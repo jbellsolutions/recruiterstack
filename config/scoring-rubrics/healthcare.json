@@ -1,0 +1,17 @@
+{
+  "name": "Healthcare Staffing",
+  "dimensions": {
+    "credentialCompliance": { "weight": 40, "description": "Active licenses, certifications, and credentials for the role and state" },
+    "clinicalSkills": { "weight": 25, "description": "Clinical competencies matching the position requirements" },
+    "experienceDepth": { "weight": 20, "description": "Years in specialty, facility types, and patient populations" },
+    "locationFit": { "weight": 10, "description": "NLC compact state eligibility or willingness to obtain state license" },
+    "availability": { "weight": 5, "description": "Ready to start within required timeframe, shift flexibility" }
+  },
+  "thresholds": {
+    "submit": 75,
+    "maybe": 50,
+    "pass": 0
+  },
+  "requiredCredentials": ["RN/LPN License", "BLS Certification", "State-specific requirements"],
+  "notes": "Credential compliance is weighted highest because a candidate without proper credentials cannot be placed regardless of other qualifications."
+}

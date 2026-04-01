@@ -1,0 +1,13 @@
+{
+  "agencyType": "it-tech",
+  "displayName": "IT / Tech Staffing",
+  "description": "Technology staffing for software engineers, data scientists, DevOps, cybersecurity, and IT roles",
+  "defaultPainPoints": ["skills-matching", "speed-to-submit", "candidate-ghosting", "technical-screening", "passive-candidate-sourcing"],
+  "recommendedAgents": ["resume-screening", "candidate-sourcing", "client-outreach", "daily-briefing"],
+  "scoringRubric": "it-tech",
+  "keyMetrics": ["skills-match-accuracy", "time-to-submit", "submission-to-interview-rate", "offer-acceptance-rate"],
+  "commonATS": ["lever", "greenhouse", "bullhorn"],
+  "complianceLevel": "standard",
+  "typicalTeamSize": { "min": 5, "max": 30 },
+  "notes": "Boolean search misses 40-60% of qualified candidates. Semantic skills matching is the key differentiator. Understanding that 'managed 12 engineers' implies leadership even without 'management' on the resume."
+}

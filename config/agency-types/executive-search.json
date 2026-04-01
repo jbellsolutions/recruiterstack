@@ -1,0 +1,13 @@
+{
+  "agencyType": "executive-search",
+  "displayName": "Executive Search",
+  "description": "Retained and contingency executive placement for C-suite, VP, and director-level roles",
+  "defaultPainPoints": ["research-depth", "market-mapping", "passive-outreach", "long-search-timelines", "competitor-intelligence"],
+  "recommendedAgents": ["candidate-sourcing", "client-outreach", "daily-briefing", "resume-screening"],
+  "scoringRubric": "general",
+  "keyMetrics": ["search-completion-rate", "time-to-shortlist", "candidate-quality-score", "client-satisfaction"],
+  "commonATS": ["bullhorn", "lever"],
+  "complianceLevel": "standard",
+  "typicalTeamSize": { "min": 3, "max": 15 },
+  "notes": "Research is 40% of the job. AI market mapping reduces 40-80 hours to 4-8 hours. Executive dossier generation and structured assessment frameworks are high value."
+}

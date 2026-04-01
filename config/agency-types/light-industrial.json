@@ -1,0 +1,14 @@
+{
+  "agencyType": "light-industrial",
+  "displayName": "Light Industrial Staffing",
+  "description": "High-volume warehouse, manufacturing, logistics, and general labor staffing",
+  "defaultPainPoints": ["no-show-rates", "high-volume-scheduling", "credential-tracking", "candidate-reliability", "shift-filling-speed"],
+  "recommendedAgents": ["daily-briefing", "compliance-monitoring", "candidate-sourcing", "resume-screening"],
+  "scoringRubric": "light-industrial",
+  "keyMetrics": ["no-show-rate", "shift-fill-rate", "time-to-fill-shift", "worker-retention-30day"],
+  "commonATS": ["bullhorn", "avionte", "tempworks"],
+  "complianceLevel": "moderate",
+  "complianceNotes": "OSHA certifications, forklift licenses, drug testing, workers comp classification",
+  "typicalTeamSize": { "min": 10, "max": 100 },
+  "notes": "40%+ no-show rates are common. SMS-first communication is critical. Reliability prediction and shift backfill automation are the highest-impact agents."
+}

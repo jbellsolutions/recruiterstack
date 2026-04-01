@@ -1,0 +1,16 @@
+{
+  "name": "IT / Tech Staffing",
+  "dimensions": {
+    "technicalSkills": { "weight": 40, "description": "Programming languages, frameworks, tools matching job requirements. Understand semantic equivalencies (React ≈ React.js, Python ML ≈ scikit-learn/PyTorch)" },
+    "experienceDepth": { "weight": 25, "description": "Years of hands-on experience, project complexity, team size managed" },
+    "cultureFit": { "weight": 15, "description": "Startup vs enterprise experience, remote work capability, communication style" },
+    "locationFit": { "weight": 10, "description": "Remote eligibility, timezone alignment, willingness to relocate" },
+    "availability": { "weight": 10, "description": "Notice period, contract end date, start date flexibility" }
+  },
+  "thresholds": {
+    "submit": 65,
+    "maybe": 40,
+    "pass": 0
+  },
+  "notes": "Technical skills matching must go beyond keyword matching. 'Managed 12 engineers' implies leadership even without 'management' on the resume. GitHub/Stack Overflow profiles are signal, not noise."
+}

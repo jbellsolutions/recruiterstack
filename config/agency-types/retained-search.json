@@ -1,0 +1,13 @@
+{
+  "agencyType": "retained-search",
+  "displayName": "Retained Search",
+  "description": "Exclusive retained engagements with upfront fees for senior and specialized roles",
+  "defaultPainPoints": ["research-depth", "long-timelines", "market-mapping", "client-reporting", "knowledge-management"],
+  "recommendedAgents": ["candidate-sourcing", "client-outreach", "daily-briefing", "resume-screening"],
+  "scoringRubric": "general",
+  "keyMetrics": ["search-completion-rate", "time-to-shortlist", "client-satisfaction", "searches-per-partner"],
+  "commonATS": ["bullhorn", "lever"],
+  "complianceLevel": "standard",
+  "typicalTeamSize": { "min": 3, "max": 20 },
+  "notes": "Partners are hands-on operators. AI market mapping and research automation free up time for relationship building and candidate assessment."
+}

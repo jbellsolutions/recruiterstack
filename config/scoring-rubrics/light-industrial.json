@@ -1,0 +1,15 @@
+{
+  "name": "Light Industrial Staffing",
+  "dimensions": {
+    "availability": { "weight": 35, "description": "Shift availability (days, nights, weekends), start date, transportation reliability" },
+    "proximity": { "weight": 25, "description": "Distance from job site, transportation method, commute reliability" },
+    "reliabilityScore": { "weight": 25, "description": "Prior attendance record, longevity at previous positions, references" },
+    "certifications": { "weight": 15, "description": "OSHA, forklift, safety training, equipment operation licenses" }
+  },
+  "thresholds": {
+    "submit": 60,
+    "maybe": 35,
+    "pass": 0
+  },
+  "notes": "Reliability is the #1 predictor of success in light industrial. No-show rates of 40%+ mean proximity and transportation are critical screening factors. Lower submit threshold because volume matters."
+}

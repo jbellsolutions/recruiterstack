@@ -1,0 +1,15 @@
+{
+  "name": "General Staffing",
+  "dimensions": {
+    "skillsMatch": { "weight": 30, "description": "How well candidate skills align with job requirements" },
+    "experienceDepth": { "weight": 25, "description": "Years and relevance of prior experience" },
+    "industryFit": { "weight": 20, "description": "Background in the target industry or transferable experience" },
+    "locationFit": { "weight": 15, "description": "Proximity to job location or remote eligibility" },
+    "availability": { "weight": 10, "description": "Ready to start within the required timeframe" }
+  },
+  "thresholds": {
+    "submit": 70,
+    "maybe": 40,
+    "pass": 0
+  }
+}
