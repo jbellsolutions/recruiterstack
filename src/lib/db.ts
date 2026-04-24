@@ -20,6 +20,48 @@ function getDb() {
 
 // Initialize tables on first import
 let initialized = false;
+
+function stringifyJson(value: unknown): string {
+  return JSON.stringify(value ?? []);
+}
+
+function parseStringArray(value: unknown): string[] {
+  if (typeof value !== "string" || !value) return [];
+  try {
+    const parsed = JSON.parse(value);
+    return Array.isArray(parsed)
+      ? parsed.filter((item): item is string => typeof item === "string")
+      : [];
+  } catch {
+    return [];
+  }
+}
+
+function parseTranscript(
+  value: unknown
+): Array<{ role: string; content: string }> {
+  if (typeof value !== "string" || !value) return [];
+  try {
+    const parsed = JSON.parse(value);
+    if (!Array.isArray(parsed)) return [];
+    return parsed
+      .filter(
+        (item): item is { role: string; content: string } =>
+          typeof item === "object" &&
+          item !== null &&
+          typeof item.role === "string" &&
+          typeof item.content === "string"
+      )
+      .map((item) => ({ role: item.role, content: item.content }));
+  } catch {
+    return [];
+  }
+}
+
+function toBoolean(value: unknown): boolean {
+  return Number(value) === 1;
+}
+
 async function ensureTables() {
   if (initialized) return;
   await getDb().batch([
@@ -77,6 +119,41 @@ async function ensureTables() {
       artifact_type TEXT NOT NULL,
       content TEXT NOT NULL,
       created_by TEXT,
+      created_at TEXT DEFAULT (datetime('now'))
+    )`,
+    `CREATE TABLE IF NOT EXISTS prospects (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      email TEXT NOT NULL,
+      agency_type TEXT,
+      ats TEXT,
+      selected_problems TEXT DEFAULT '[]',
+      priority_order TEXT DEFAULT '[]',
+      custom_problems TEXT DEFAULT '[]',
+      generated_plan_summary TEXT,
+      project_name TEXT,
+      project_brief TEXT,
+      transcript_json TEXT DEFAULT '[]',
+      transcript_summary TEXT,
+      source_repo TEXT DEFAULT 'recruiterstack',
+      source_path TEXT DEFAULT '/plan',
+      engagement_mode TEXT,
+      audit_interest INTEGER DEFAULT 0,
+      send_plan_consent INTEGER DEFAULT 0,
+      newsletter_consent INTEGER DEFAULT 0,
+      follow_up_consent INTEGER DEFAULT 0,
+      sync_status TEXT DEFAULT 'pending',
+      sync_error TEXT,
+      created_at TEXT DEFAULT (datetime('now')),
+      updated_at TEXT DEFAULT (datetime('now'))
+    )`,
+    `CREATE TABLE IF NOT EXISTS prospect_sync_events (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      prospect_id INTEGER NOT NULL,
+      destination TEXT NOT NULL,
+      status TEXT NOT NULL,
+      payload TEXT,
+      response TEXT,
       created_at TEXT DEFAULT (datetime('now'))
     )`,
   ]);
@@ -258,6 +335,186 @@ export async function getArtifact(slug: string, type: string): Promise<string | 
     args: [slug, type],
   });
   return (result.rows[0]?.content as string) || null;
+}
+
+// --- Prospects ---
+
+export interface Prospect {
+  id: number;
+  name: string;
+  email: string;
+  agency_type: string | null;
+  ats: string | null;
+  selected_problems: string[];
+  priority_order: string[];
+  custom_problems: string[];
+  generated_plan_summary: string | null;
+  project_name: string | null;
+  project_brief: string | null;
+  transcript_json: Array<{ role: string; content: string }>;
+  transcript_summary: string | null;
+  source_repo: string | null;
+  source_path: string | null;
+  engagement_mode: string | null;
+  audit_interest: boolean;
+  send_plan_consent: boolean;
+  newsletter_consent: boolean;
+  follow_up_consent: boolean;
+  sync_status: string;
+  sync_error: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface CreateProspectInput {
+  name: string;
+  email: string;
+  agency_type?: string | null;
+  ats?: string | null;
+  selected_problems?: string[];
+  priority_order?: string[];
+  custom_problems?: string[];
+  generated_plan_summary?: string | null;
+  project_name?: string | null;
+  project_brief?: string | null;
+  transcript_json?: Array<{ role: string; content: string }>;
+  transcript_summary?: string | null;
+  source_repo?: string | null;
+  source_path?: string | null;
+  engagement_mode?: string | null;
+  audit_interest?: boolean;
+  send_plan_consent?: boolean;
+  newsletter_consent?: boolean;
+  follow_up_consent?: boolean;
+}
+
+function mapProspectRow(row: Record<string, unknown>): Prospect {
+  return {
+    id: Number(row.id),
+    name: String(row.name || ""),
+    email: String(row.email || ""),
+    agency_type: (row.agency_type as string | null) || null,
+    ats: (row.ats as string | null) || null,
+    selected_problems: parseStringArray(row.selected_problems),
+    priority_order: parseStringArray(row.priority_order),
+    custom_problems: parseStringArray(row.custom_problems),
+    generated_plan_summary: (row.generated_plan_summary as string | null) || null,
+    project_name: (row.project_name as string | null) || null,
+    project_brief: (row.project_brief as string | null) || null,
+    transcript_json: parseTranscript(row.transcript_json),
+    transcript_summary: (row.transcript_summary as string | null) || null,
+    source_repo: (row.source_repo as string | null) || null,
+    source_path: (row.source_path as string | null) || null,
+    engagement_mode: (row.engagement_mode as string | null) || null,
+    audit_interest: toBoolean(row.audit_interest),
+    send_plan_consent: toBoolean(row.send_plan_consent),
+    newsletter_consent: toBoolean(row.newsletter_consent),
+    follow_up_consent: toBoolean(row.follow_up_consent),
+    sync_status: String(row.sync_status || "pending"),
+    sync_error: (row.sync_error as string | null) || null,
+    created_at: String(row.created_at || ""),
+    updated_at: String(row.updated_at || ""),
+  };
+}
+
+export async function createProspect(
+  data: CreateProspectInput
+): Promise<number> {
+  await ensureTables();
+  const result = await getDb().execute({
+    sql: `INSERT INTO prospects (
+      name,
+      email,
+      agency_type,
+      ats,
+      selected_problems,
+      priority_order,
+      custom_problems,
+      generated_plan_summary,
+      project_name,
+      project_brief,
+      transcript_json,
+      transcript_summary,
+      source_repo,
+      source_path,
+      engagement_mode,
+      audit_interest,
+      send_plan_consent,
+      newsletter_consent,
+      follow_up_consent
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    args: [
+      data.name,
+      data.email,
+      data.agency_type || null,
+      data.ats || null,
+      stringifyJson(data.selected_problems || []),
+      stringifyJson(data.priority_order || []),
+      stringifyJson(data.custom_problems || []),
+      data.generated_plan_summary || null,
+      data.project_name || null,
+      data.project_brief || null,
+      stringifyJson(data.transcript_json || []),
+      data.transcript_summary || null,
+      data.source_repo || "recruiterstack",
+      data.source_path || "/plan",
+      data.engagement_mode || null,
+      data.audit_interest ? 1 : 0,
+      data.send_plan_consent ? 1 : 0,
+      data.newsletter_consent ? 1 : 0,
+      data.follow_up_consent ? 1 : 0,
+    ],
+  });
+  return Number(result.lastInsertRowid);
+}
+
+export async function getProspectById(id: number): Promise<Prospect | null> {
+  await ensureTables();
+  const result = await getDb().execute({
+    sql: "SELECT * FROM prospects WHERE id = ?",
+    args: [id],
+  });
+  const row = result.rows[0] as Record<string, unknown> | undefined;
+  return row ? mapProspectRow(row) : null;
+}
+
+export async function updateProspectSyncStatus(
+  id: number,
+  data: { sync_status: string; sync_error?: string | null }
+): Promise<void> {
+  await ensureTables();
+  await getDb().execute({
+    sql: `UPDATE prospects
+      SET sync_status = ?, sync_error = ?, updated_at = datetime('now')
+      WHERE id = ?`,
+    args: [data.sync_status, data.sync_error || null, id],
+  });
+}
+
+export async function addProspectSyncEvent(data: {
+  prospect_id: number;
+  destination: string;
+  status: string;
+  payload?: string;
+  response?: string;
+}): Promise<void> {
+  await ensureTables();
+  await getDb().execute({
+    sql: `INSERT INTO prospect_sync_events (
+      prospect_id,
+      destination,
+      status,
+      payload,
+      response
+    ) VALUES (?, ?, ?, ?, ?)`,
+    args: [
+      data.prospect_id,
+      data.destination,
+      data.status,
+      data.payload || null,
+      data.response || null,
+    ],
+  });
 }
 
 // --- Team Status (computed) ---

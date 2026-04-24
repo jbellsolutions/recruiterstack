@@ -32,16 +32,26 @@ export function ProjectChat({ slug }: { slug: string }) {
   const [sending, setSending] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
 
-  async function fetchMessages() {
-    const res = await fetch(`/api/projects/${slug}/messages`);
-    const data = await res.json();
-    setMessages(data.messages || []);
-  }
-
   useEffect(() => {
-    fetchMessages();
-    const id = setInterval(fetchMessages, 5000);
-    return () => clearInterval(id);
+    let active = true;
+
+    async function fetchMessages() {
+      const res = await fetch(`/api/projects/${slug}/messages`);
+      const data = await res.json();
+      if (active) {
+        setMessages(data.messages || []);
+      }
+    }
+
+    void fetchMessages();
+    const id = setInterval(() => {
+      void fetchMessages();
+    }, 5000);
+
+    return () => {
+      active = false;
+      clearInterval(id);
+    };
   }, [slug]);
 
   useEffect(() => {
@@ -76,7 +86,9 @@ export function ProjectChat({ slug }: { slug: string }) {
 
     setInput("");
     setSending(false);
-    await fetchMessages();
+    const res = await fetch(`/api/projects/${slug}/messages`);
+    const data = await res.json();
+    setMessages(data.messages || []);
   }
 
   // Reverse to show oldest first (messages come newest-first from API)

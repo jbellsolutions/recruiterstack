@@ -1,3 +1,6 @@
+import Link from "next/link";
+import { AUDIT_URL } from "@/lib/funnel-data";
+
 export const dynamic = "force-dynamic";
 
 const useCases = [
@@ -131,11 +134,35 @@ const useCases = [
 export default function IdeasPage() {
   return (
     <div className="max-w-6xl mx-auto px-6 py-8">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-white">RecruiterStack AI Solutions</h1>
-        <p className="text-sm text-zinc-500 mt-2">
-          20 pre-built solutions for staffing &amp; recruiting. Click any solution to start building it — fully working, no coding required.
+      <div className="rounded-[28px] border border-zinc-800 bg-zinc-900/85 p-8 mb-8">
+        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-zinc-500 mb-3">
+          Problem-First Solution Library
         </p>
+        <h1 className="text-3xl font-semibold text-white">
+          Pick the bottleneck. We&apos;ll map it to a solution.
+        </h1>
+        <p className="text-sm text-zinc-400 mt-3 max-w-3xl leading-7">
+          These are the most common workflows staffing and recruiting agencies ask
+          us to fix. Click into any one to open the planning funnel with a starting
+          brief, then decide whether you want to solve it with AI or hand it to us
+          for an audit.
+        </p>
+        <div className="flex flex-wrap gap-3 mt-6">
+          <Link
+            href="/plan"
+            className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium rounded-lg transition-colors"
+          >
+            Start From Scratch
+          </Link>
+          <a
+            href={AUDIT_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-4 py-2 border border-emerald-500/40 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-200 text-sm font-medium rounded-lg transition-colors"
+          >
+            Book An Audit
+          </a>
+        </div>
       </div>
 
       {useCases.map((category) => (
@@ -166,7 +193,7 @@ function IdeaCard({ item }: { item: { title: string; description: string; brief:
         </h3>
         <p className="text-sm text-zinc-400 mt-2">{item.description}</p>
         <span className="inline-block mt-3 text-xs text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity">
-          Start planning this &rarr;
+          Open this in the funnel &rarr;
         </span>
       </button>
     </form>

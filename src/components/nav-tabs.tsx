@@ -4,9 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const tabs = [
-  { href: "/", label: "Dashboard" },
-  { href: "/ideas", label: "Solutions" },
-  { href: "/plan", label: "Plan a Project" },
+  { href: "/", label: "Rabbit Hole" },
+  { href: "/ideas", label: "Problems & Solutions" },
+  { href: "/plan", label: "Plan With AI" },
 ];
 
 export function NavTabs() {

@@ -1,51 +1,117 @@
 import { NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
+import {
+  AGENCY_TYPES,
+  AUDIT_URL,
+  PROBLEM_CATEGORIES,
+} from "@/lib/funnel-data";
 
-const SYSTEM_PROMPT = `You are a staffing & recruiting industry expert and project planning assistant for RecruiterStack AI — an autonomous development platform that builds tools specifically for staffing agencies, recruiting firms, and talent acquisition teams.
+const agencyTypeLabels = AGENCY_TYPES.map((item) => item.label).join(", ");
+const problemLabels = PROBLEM_CATEGORIES.map((item) => item.label).join(", ");
 
-Your job is to help staffing professionals figure out what they need built. You understand their world deeply: ATS systems (Bullhorn, Lever, Greenhouse, JobDiva, Crelate), VMS platforms, job boards (Indeed, ZipRecruiter, LinkedIn), compliance requirements (I-9, E-Verify, EEOC, OFCCP), and the daily grind of recruiting.
+const SYSTEM_PROMPT = `You are the natural-language funnel guide for RecruiterStack AI.
 
-Domain knowledge you bring to every conversation:
-- Staffing models: temp, contract, perm, temp-to-perm, SOW, MSP, RPO
-- Revenue mechanics: bill rates, pay rates, markups, gross margins, burden rates, workers' comp
-- Recruiter workflow: source → screen → submit → interview → offer → place → onboard
-- Pain points: ATS data entry, status update emails, timesheet chasing, compliance doc tracking, candidate ghosting, split desk coordination
-- Agency types: light industrial, healthcare, IT/tech, executive search, clerical, engineering, accounting/finance, legal, creative, hospitality, skilled trades, education, scientific
+Your tone:
+- Warm, direct, and easy for non-technical staffing owners to follow
+- Feels like a smart operator, not a software wizard
+- Uses staffing language naturally: reqs, submittals, fill rate, recruiter bandwidth, compliance, timesheets, ghosting
 
-Rules:
-- Be conversational and warm. Speak their language — submittals, reqs, fill rates, time-to-fill, sendouts.
-- Ask ONE question at a time (don't overwhelm)
-- Early questions should identify: What type of agency? What ATS? What's the biggest daily pain?
-- After 2-3 exchanges, start summarizing what you'd build
-- Suggest staffing-specific features they might not think of (e.g. "Should this also check for duplicate candidates in your ATS?" or "Want it to auto-calculate the gross margin before submitting?")
-- When the brief feels solid, say "I think we're ready to build this!" and include a final summary
-- Keep responses under 150 words
-- Bold key phrases with **double asterisks**
-- Never suggest terminal commands or technical implementation details
-- Frame everything in terms of what the RECRUITER, ACCOUNT MANAGER, or HIRING MANAGER sees and does
+Your job:
+1. Welcome them into the "rabbit hole" and make it feel simple.
+2. Identify what kind of staffing agency they are.
+3. Identify their ATS or current workflow stack.
+4. Help them pick which problems they actually want to solve.
+5. Confirm the order they want to tackle those problems in.
+6. Build a concise, problem-by-problem action plan.
+7. Ask whether they want guided DIY help or a done-for-you audit.
+8. After value is delivered, ask for name + email so you can send the custom plan and transcript.
+9. Make it clear that newsletter/follow-up consent is separate and optional.
 
-When you have a clear enough picture, include this JSON block at the END of your message (the app parses it):
-<!--PROJECT_DATA:{"projectName":"Short Name Here","projectBrief":"Full detailed brief here describing everything the app should do, who uses it, key features, and any specific requirements discussed.","readyToBuild":true}-->
+Known agency buckets:
+${agencyTypeLabels}
 
-Only include the PROJECT_DATA when you genuinely have enough detail to build something useful. Don't rush it.`;
+Known problem categories:
+${problemLabels}
+
+Conversation rules:
+- Ask one question at a time until the plan is clear.
+- Keep responses under 170 words.
+- Never mention code, terminal commands, frameworks, or implementation details unless the user explicitly asks.
+- Prefer simple language over technical language.
+- When you have enough detail, give a short action plan with numbered steps.
+- If they want done-for-you help, mention the audit link: ${AUDIT_URL}
+- If they want to work through it together, encourage that and explain you can keep going step by step.
+- Contact capture happens at the end, after the plan has real value.
+
+Always include this metadata block at the end of EVERY reply:
+<!--FUNNEL_DATA:{"projectName":null,"projectBrief":null,"readyToBuild":false,"agencyType":null,"ats":null,"selectedProblems":[],"priorityOrder":[],"customProblems":[],"planSummary":null,"journeyStage":"discovery","helpMode":"undecided","auditInterest":false,"leadCaptureReady":false}-->
+
+Metadata rules:
+- Use "journeyStage" values from: welcome, discovery, priorities, planning, decision, capture
+- Use "helpMode" values from: guided-diy, audit, undecided
+- Set "readyToBuild" to true only when the plan is specific enough to create a useful build brief
+- Set "leadCaptureReady" to true only after you have delivered the plan and the user understands the next step
+- "selectedProblems" should contain the actual problems they want solved
+- "priorityOrder" should preserve the order they want to tackle them
+- "customProblems" should capture problems they mention that are not already obvious from the known categories
+- "planSummary" should be a concise plain-English summary of the plan
+- "projectName" should be a short, clear project name when possible
+- "projectBrief" should describe the full plan in plain English for the build team
+- If the user explicitly wants an audit, set "auditInterest" true and "helpMode" to "audit"
+- If the user wants to solve it together, set "helpMode" to "guided-diy"`;
+
+interface FunnelData {
+  projectName: string | null;
+  projectBrief: string | null;
+  readyToBuild: boolean;
+  agencyType: string | null;
+  ats: string | null;
+  selectedProblems: string[];
+  priorityOrder: string[];
+  customProblems: string[];
+  planSummary: string | null;
+  journeyStage: string;
+  helpMode: string;
+  auditInterest: boolean;
+  leadCaptureReady: boolean;
+}
+
+const DEFAULT_FUNNEL_DATA: FunnelData = {
+  projectName: null,
+  projectBrief: null,
+  readyToBuild: false,
+  agencyType: null,
+  ats: null,
+  selectedProblems: [],
+  priorityOrder: [],
+  customProblems: [],
+  planSummary: null,
+  journeyStage: "discovery",
+  helpMode: "undecided",
+  auditInterest: false,
+  leadCaptureReady: false,
+};
 
 export async function POST(request: Request) {
   try {
-    const { messages, projectName, projectBrief } = await request.json();
+    const { messages, projectName, projectBrief, funnelData } = await request.json();
 
     const apiKey = process.env.ANTHROPIC_API_KEY;
     if (!apiKey) {
       return NextResponse.json({
-        reply: "I'd love to help, but the AI service isn't configured yet. You can still fill in the project name and brief on the right and hit Start Building!",
+        reply: "I can still help you outline this manually, but the AI guide is not configured yet. Use the sidebar to capture the agency type, top problems, and your contact details, or book an audit if you want us to do the heavy lifting.",
+        funnelData: DEFAULT_FUNNEL_DATA,
       });
     }
 
     const client = new Anthropic({ apiKey });
 
-    // Build context about existing brief if there is one
     let systemPrompt = SYSTEM_PROMPT;
     if (projectName || projectBrief) {
       systemPrompt += `\n\nCurrent project context:\n- Name: ${projectName || "(not set yet)"}\n- Brief: ${projectBrief || "(not set yet)"}`;
+    }
+    if (funnelData) {
+      systemPrompt += `\n\nCurrent funnel state:\n${JSON.stringify(funnelData, null, 2)}`;
     }
 
     const response = await client.messages.create({
@@ -60,19 +126,51 @@ export async function POST(request: Request) {
 
     const text = response.content[0].type === "text" ? response.content[0].text : "";
 
-    // Parse out PROJECT_DATA if present
-    const dataMatch = text.match(/<!--PROJECT_DATA:([\s\S]*?)-->/);
-    let reply = text.replace(/<!--PROJECT_DATA:[\s\S]*?-->/, "").trim();
-    let parsedName: string | null = null;
-    let parsedBrief: string | null = null;
-    let readyToBuild = false;
+    const dataMatch = text.match(/<!--FUNNEL_DATA:([\s\S]*?)-->/);
+    const reply = text.replace(/<!--FUNNEL_DATA:[\s\S]*?-->/, "").trim();
+    const parsedData: FunnelData = { ...DEFAULT_FUNNEL_DATA };
 
     if (dataMatch) {
       try {
         const data = JSON.parse(dataMatch[1]);
-        parsedName = data.projectName || null;
-        parsedBrief = data.projectBrief || null;
-        readyToBuild = data.readyToBuild || false;
+        parsedData.projectName =
+          typeof data.projectName === "string" && data.projectName.trim()
+            ? data.projectName.trim()
+            : null;
+        parsedData.projectBrief =
+          typeof data.projectBrief === "string" && data.projectBrief.trim()
+            ? data.projectBrief.trim()
+            : null;
+        parsedData.readyToBuild = Boolean(data.readyToBuild);
+        parsedData.agencyType =
+          typeof data.agencyType === "string" && data.agencyType.trim()
+            ? data.agencyType.trim()
+            : null;
+        parsedData.ats =
+          typeof data.ats === "string" && data.ats.trim() ? data.ats.trim() : null;
+        parsedData.selectedProblems = Array.isArray(data.selectedProblems)
+          ? data.selectedProblems.filter((item: unknown): item is string => typeof item === "string")
+          : [];
+        parsedData.priorityOrder = Array.isArray(data.priorityOrder)
+          ? data.priorityOrder.filter((item: unknown): item is string => typeof item === "string")
+          : [];
+        parsedData.customProblems = Array.isArray(data.customProblems)
+          ? data.customProblems.filter((item: unknown): item is string => typeof item === "string")
+          : [];
+        parsedData.planSummary =
+          typeof data.planSummary === "string" && data.planSummary.trim()
+            ? data.planSummary.trim()
+            : null;
+        parsedData.journeyStage =
+          typeof data.journeyStage === "string" && data.journeyStage.trim()
+            ? data.journeyStage.trim()
+            : DEFAULT_FUNNEL_DATA.journeyStage;
+        parsedData.helpMode =
+          typeof data.helpMode === "string" && data.helpMode.trim()
+            ? data.helpMode.trim()
+            : DEFAULT_FUNNEL_DATA.helpMode;
+        parsedData.auditInterest = Boolean(data.auditInterest);
+        parsedData.leadCaptureReady = Boolean(data.leadCaptureReady);
       } catch {
         // ignore parse errors
       }
@@ -80,14 +178,16 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       reply,
-      projectName: parsedName,
-      projectBrief: parsedBrief,
-      readyToBuild,
+      projectName: parsedData.projectName,
+      projectBrief: parsedData.projectBrief,
+      readyToBuild: parsedData.readyToBuild,
+      funnelData: parsedData,
     });
   } catch (error) {
     console.error("Plan chat error:", error);
     return NextResponse.json({
       reply: "Something went wrong. Try again?",
+      funnelData: DEFAULT_FUNNEL_DATA,
     });
   }
 }

@@ -10,7 +10,6 @@ export function NewProjectForm() {
   const [provider, setProvider] = useState("anthropic");
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [slug, setSlug] = useState("");
   const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
@@ -27,7 +26,6 @@ export function NewProjectForm() {
       }),
     });
     const data = await res.json();
-    setSlug(data.slug);
     setLoading(false);
     setSubmitted(true);
     setTimeout(() => {
@@ -41,7 +39,7 @@ export function NewProjectForm() {
         onClick={() => setOpen(true)}
         className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium rounded-lg transition-colors"
       >
-        + New Project
+        Skip To A Build
       </button>
     );
   }
@@ -53,7 +51,10 @@ export function NewProjectForm() {
         onSubmit={handleSubmit}
         className="bg-zinc-900 border border-zinc-700 rounded-xl p-6 w-full max-w-lg space-y-4"
       >
-        <h2 className="text-lg font-semibold text-white">New Project</h2>
+        <h2 className="text-lg font-semibold text-white">Start A Guided Build</h2>
+        <p className="text-sm text-zinc-500">
+          If you already know what you want, drop it here and the build team will take over.
+        </p>
 
         <div>
           <label className="block text-sm text-zinc-400 mb-1">Project Name</label>
@@ -61,7 +62,7 @@ export function NewProjectForm() {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="My SaaS App"
+            placeholder="Candidate follow-up engine"
             className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm focus:border-blue-500 outline-none"
             required
             disabled={submitted}
@@ -69,11 +70,11 @@ export function NewProjectForm() {
         </div>
 
         <div>
-          <label className="block text-sm text-zinc-400 mb-1">Brief — describe what you want to build</label>
+          <label className="block text-sm text-zinc-400 mb-1">Brief</label>
           <textarea
             value={brief}
             onChange={(e) => setBrief(e.target.value)}
-            placeholder="A recruiting system for insurance agents. Facebook ads → lead form → AI call in 2 min → voicemail if no answer → interview booked on calendar..."
+            placeholder="We are a healthcare staffing agency using Bullhorn. Our recruiters lose hours every week chasing credential expirations, missing documents, and candidate follow-up..."
             rows={5}
             className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm focus:border-blue-500 outline-none resize-none"
             required
@@ -126,13 +127,13 @@ export function NewProjectForm() {
             disabled={loading || !name.trim() || !brief.trim() || submitted}
             className="px-4 py-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white text-sm font-medium rounded-lg transition-colors"
           >
-            {loading ? "Starting..." : submitted ? "Building!" : "Start Building"}
+            {loading ? "Starting..." : submitted ? "Building!" : "Start Guided Build"}
           </button>
         </div>
 
         {submitted && (
           <div className="bg-green-950 border border-green-800 rounded-lg p-3">
-            <p className="text-sm text-green-400 font-medium">Project started! The team is working on it now.</p>
+            <p className="text-sm text-green-400 font-medium">Build started. The team is working on it now.</p>
             <p className="text-xs text-green-500/70 mt-1">Redirecting to project page...</p>
           </div>
         )}

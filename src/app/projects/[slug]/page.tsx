@@ -4,6 +4,7 @@ import { ProjectChat } from "@/components/project-chat";
 import { LogStream } from "@/components/log-stream";
 import { BuildingBanner } from "@/components/building-banner";
 import { RefreshWrapper } from "@/components/refresh-wrapper";
+import { AUDIT_URL } from "@/lib/funnel-data";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -26,7 +27,7 @@ export default async function ProjectDetail({ params }: { params: Promise<{ slug
     <RefreshWrapper>
       <div className="max-w-5xl mx-auto px-6 py-8">
         <Link href="/" className="text-sm text-zinc-500 hover:text-zinc-300 mb-4 inline-block">
-          &larr; Back to Dashboard
+          &larr; Back to Rabbit Hole
         </Link>
 
         {/* Header */}
@@ -87,6 +88,16 @@ export default async function ProjectDetail({ params }: { params: Promise<{ slug
                   <a href={project.github_url} target="_blank" rel="noopener noreferrer" className="text-xs text-green-400 hover:text-green-300 underline">{project.github_url}</a>
                 </div>
               )}
+              <div className="flex flex-wrap gap-3 pt-1">
+                <a
+                  href={AUDIT_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-medium rounded-lg transition-colors"
+                >
+                  Want Help Rolling This Out?
+                </a>
+              </div>
             </div>
           </div>
         )}
