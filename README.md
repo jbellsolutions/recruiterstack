@@ -6,9 +6,9 @@ This repo is **made for staffing and recruiting agencies**.
 
 If your agency is buried in reqs, follow-up, screening, compliance, reporting, or recruiter overload, this resource is built to help you sort out what to fix first.
 
-<div style="position: relative; padding-bottom: 56.25%; height: 0;">
-  <iframe src="https://www.loom.com/embed/0272afd64a1f4cf9b8ff5ba50243f662" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
-</div>
+## Watch The Walkthrough
+
+[Build a Notion Orchestrator with Slack 🤖 - Watch Video](https://www.loom.com/share/0272afd64a1f4cf9b8ff5ba50243f662)
 
 **Website:** [aiintegraterz.com/audit](https://aiintegraterz.com/audit)
 
