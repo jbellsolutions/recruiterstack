@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "RecruiterStack | Staffing AI Rabbit Hole",
-  description: "Problem-first GitHub funnel for staffing and recruiting agencies. Start with your agency type, pick your bottlenecks, and leave with a custom plan.",
+  description: "Problem-first GitHub resource for staffing and recruiting agencies. Start with your agency type, pick your bottlenecks, and leave with a custom plan.",
 };
 
 export default function RootLayout({

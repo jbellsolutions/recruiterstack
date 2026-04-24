@@ -149,7 +149,7 @@ export default async function Dashboard() {
               What Happens Next
             </p>
             <h2 className="text-2xl font-semibold text-white mb-4">
-              The funnel is simple on purpose
+              The process is simple on purpose
             </h2>
             <div className="space-y-4 text-sm text-zinc-300 leading-7">
               <p>
@@ -216,7 +216,7 @@ export default async function Dashboard() {
           <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-12 text-center mb-8">
             <p className="text-zinc-500 mb-2">No guided builds yet</p>
             <p className="text-sm text-zinc-600">
-              Start the funnel above, or skip straight to a build when you already know the workflow you want.
+              Start above, or skip straight to a build when you already know the workflow you want.
             </p>
           </div>
         )}

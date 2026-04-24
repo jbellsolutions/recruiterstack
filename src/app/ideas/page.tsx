@@ -143,7 +143,7 @@ export default function IdeasPage() {
         </h1>
         <p className="text-sm text-zinc-400 mt-3 max-w-3xl leading-7">
           These are the most common workflows staffing and recruiting agencies ask
-          us to fix. Click into any one to open the planning funnel with a starting
+          us to fix. Click into any one to open the planning workspace with a starting
           brief, then decide whether you want to solve it with AI or hand it to us
           for an audit.
         </p>
@@ -193,7 +193,7 @@ function IdeaCard({ item }: { item: { title: string; description: string; brief:
         </h3>
         <p className="text-sm text-zinc-400 mt-2">{item.description}</p>
         <span className="inline-block mt-3 text-xs text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity">
-          Open this in the funnel &rarr;
+          Open this in the planner &rarr;
         </span>
       </button>
     </form>

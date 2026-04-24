@@ -16,7 +16,7 @@ If you want us to do the heavy lifting, book an audit here:
 
 **[aiintegraterz.com/audit](https://aiintegraterz.com/audit)**
 
-## How The Funnel Works
+## How This Resource Works
 
 1. **Start with your agency type**
    Examples: contingency, healthcare, IT staffing, direct hire, temp/contract, MSP/VMS, executive search.
@@ -30,8 +30,6 @@ If you want us to do the heavy lifting, book an audit here:
    Plain English. No technical jargon required.
 6. **Choose your path**
    Solve it with AI step by step, or send it to us for an audit.
-7. **Optionally leave your name and email at the end**
-   We can save the conversation, send your custom plan, and only add you to updates or follow-up if you explicitly opt in.
 
 ## What To Say In Claude Code Or Codex
 
@@ -46,6 +44,17 @@ Or:
 Or, if you want to be more specific:
 
 > “We’re a healthcare staffing agency on Bullhorn. Our biggest headaches are credential expirations, recruiter follow-up, and job-order visibility. Help me prioritize and build a plan.”
+
+## Part Of A Bigger Staffing Solution
+
+RecruiterStack is the easiest place to start, but it sits inside a broader staffing and recruiting system.
+
+- [UAIS-Staffing-AI-Vertical](https://github.com/jbellsolutions/UAIS-Staffing-AI-Vertical)
+  Public-facing research, agency-type breakdowns, problem maps, solution blueprints, and staffing-specific positioning.
+- [UAIS-Staffing-Internal](https://github.com/jbellsolutions/UAIS-Staffing-Internal)
+  The internal implementation layer used to operationalize delivery, builds, and execution.
+
+If you want the simplest entry point, start here. If you want to see the bigger picture behind it, those repos show the wider staffing system this resource was built from.
 
 ## The Main Agency Buckets
 
@@ -87,12 +96,11 @@ Or, if you want to be more specific:
 
 If you run the app locally, RecruiterStack also gives you:
 
-- a front-page funnel / landing experience
-- a planning chat tuned for staffing agencies
-- prebuilt solution cards
-- guided build flow
-- lead capture with explicit opt-ins
-- webhook-based sync into your CRM / outbound stack
+- a clean front page built for staffing and recruiting agencies
+- a guided planning chat tuned for real staffing workflows
+- prebuilt solution cards around common agency bottlenecks
+- a direct path from problem selection to guided execution
+- optional webhook hooks for CRM, outbound, or internal systems
 
 ## Works Well With AGI-Codex
 
@@ -106,31 +114,8 @@ That means `recruiterstack` includes:
 - a starting baseline for policy, runtime, and learning readiness
 - self-healing / self-learning notes seeded from real issues already found in testing
 
-This keeps the funnel repo easy to use in plain Codex, while also making it
+This keeps the repo easy to use in plain Codex, while also making it
 stronger inside a Codex-native reinforcement workflow.
-
-## Lead Capture
-
-Lead capture happens **after** the plan has value.
-
-The app can save:
-
-- name
-- email
-- agency type
-- ATS
-- selected problems
-- priority order
-- custom problems
-- generated plan summary
-- transcript / transcript summary
-- help mode: guided DIY vs audit
-- separate consent flags for:
-  - plan + transcript delivery
-  - newsletter updates
-  - follow-up resources / outreach
-
-The source of truth is the local app database. External systems are optional sinks behind a webhook.
 
 ## Local Setup
 
@@ -154,30 +139,22 @@ Optional environment variables:
 ## Files That Matter
 
 - `README.md`
-  Public-facing GitHub funnel
+  Public-facing GitHub resource
 - `CLAUDE.md`
-  Claude Code funnel behavior
+  Claude Code conversation behavior
 - `AGENTS.md`
-  Codex funnel behavior
+  Codex conversation behavior
 - `.codex/`
   Codex-native runtime config and hook handlers
 - `.agents/agi-codex/`
   Repo-owned learning, healing, checkpoint, and review state
 - `src/app/plan/page.tsx`
-  Guided funnel UI
+  Guided planning UI
 - `src/app/api/plan-chat/route.ts`
-  Funnel conversation backend
+  Planning conversation backend
 - `src/app/api/prospects/route.ts`
-  Lead capture endpoint
-
-## Consent Note
-
-This repo is designed so that:
-
-- the plan itself comes first
-- contact capture comes after value is delivered
-- newsletter and follow-up are separate opt-ins
+  Prospect capture endpoint
 
 ## License
 
-Proprietary — Integraterz.
+Proprietary — AI Integraterz.
