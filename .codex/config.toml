@@ -1,0 +1,33 @@
+# BEGIN AGI-CODEX FEATURES
+[features]
+memories = true
+codex_hooks = true
+multi_agent = true
+# END AGI-CODEX FEATURES
+
+# BEGIN AGI-CODEX TEAM SKILLS
+[[skills.config]]
+path = ".agents/skills/agi-codex-main"
+enabled = true
+
+[[skills.config]]
+path = ".agents/skills/agi-codex-audit"
+enabled = true
+
+[[skills.config]]
+path = ".agents/skills/agi-codex-council"
+enabled = true
+
+[[skills.config]]
+path = ".agents/skills/agi-codex-learn"
+enabled = true
+
+[[skills.config]]
+path = ".agents/skills/agi-codex-sync"
+enabled = true
+
+[[skills.config]]
+path = ".agents/skills/agi-codex-bootstrap"
+enabled = true
+
+# END AGI-CODEX TEAM SKILLS

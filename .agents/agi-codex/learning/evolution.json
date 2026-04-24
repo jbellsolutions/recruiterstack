@@ -1,0 +1,22 @@
+{
+  "version": "1.0.0",
+  "changes": [
+    {
+      "timestamp": "2026-04-24T00:00:00Z",
+      "change": "Installed AGI-Codex repo scaffolding in recruiterstack.",
+      "areas": [
+        "policy",
+        "runtime",
+        "learning"
+      ]
+    },
+    {
+      "timestamp": "2026-04-24T00:00:00Z",
+      "change": "Promoted real testing failures into healing patterns and learning insights.",
+      "areas": [
+        "healing",
+        "verification"
+      ]
+    }
+  ]
+}

@@ -26,7 +26,7 @@ export default async function Dashboard() {
           <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-blue-300/80 mb-3">
-                GitHub Funnel For Staffing Agencies
+                Made For Staffing And Recruiting Agencies
               </p>
               <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-white max-w-3xl">
                 Welcome to the rabbit hole.
@@ -42,7 +42,7 @@ export default async function Dashboard() {
                   href="/plan"
                   className="px-5 py-3 bg-blue-600 hover:bg-blue-500 rounded-full text-sm font-medium text-white transition-colors"
                 >
-                  Start The Funnel
+                  Get Started
                 </Link>
                 <Link
                   href="/ideas"

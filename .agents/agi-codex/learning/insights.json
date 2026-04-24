@@ -1,0 +1,23 @@
+{
+  "version": "1.0.0",
+  "insights": [
+    {
+      "timestamp": "2026-04-24T00:00:00Z",
+      "type": "runtime_readiness",
+      "title": "Funnel shell works without AI, but full conversation validation still requires ANTHROPIC_API_KEY",
+      "action": "Keep the no-key fallback graceful, but treat local Anthropic config as required for end-to-end AI walkthroughs."
+    },
+    {
+      "timestamp": "2026-04-24T00:00:00Z",
+      "type": "stability",
+      "title": "Project creation needs collision-safe slugs because seeded idea names repeat often",
+      "action": "Preserve slug uniqueness logic on every future create path."
+    },
+    {
+      "timestamp": "2026-04-24T00:00:00Z",
+      "type": "verification",
+      "title": "Browser validation should distinguish real app bugs from stale-element test harness errors",
+      "action": "After every route change, resnapshot before reusing browser refs."
+    }
+  ]
+}

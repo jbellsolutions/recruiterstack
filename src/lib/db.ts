@@ -1,4 +1,6 @@
 import { createClient } from "@libsql/client";
+import fs from "fs";
+import path from "path";
 
 // During build, Turso/LibSQL might not be available. Use a fallback.
 let db: ReturnType<typeof createClient>;
@@ -6,8 +8,10 @@ let db: ReturnType<typeof createClient>;
 function getDb() {
   if (!db) {
     try {
+      const localDbPath = path.join(process.cwd(), "data", "local.db");
+      fs.mkdirSync(path.dirname(localDbPath), { recursive: true });
       db = createClient({
-        url: process.env.TURSO_DATABASE_URL || "file:data/local.db",
+        url: process.env.TURSO_DATABASE_URL || `file:${localDbPath}`,
         authToken: process.env.TURSO_AUTH_TOKEN,
       });
     } catch {

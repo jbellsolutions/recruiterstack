@@ -93,3 +93,27 @@ The live funnel implementation is centered in:
 - `src/app/plan/page.tsx`
 - `src/app/api/plan-chat/route.ts`
 - `src/app/api/prospects/route.ts`
+
+## AGI-Codex Usage In This Repo
+
+- This repo is reinforced for `agi-codex` as well as plain Codex.
+- Keep the funnel behavior in this file as the user-facing primary contract.
+- Use `.codex/` for Codex-native hooks and runtime behavior.
+- Use `.agents/agi-codex/` for checkpoints, healing patterns, learning observations, and review logs.
+- If a failure repeats, prefer promoting the fix into:
+  - a doc update
+  - a healing pattern
+  - or a baseline / review note
+- Do not let AGI reinforcement override the plain-English funnel tone. The prospect journey still comes first.
+
+# BEGIN AGI-CODEX REPO GUIDANCE
+## AGI-Codex
+
+- This repo uses Codex-native reinforcement scaffolding.
+- Required rules live in this file and any nested `AGENTS.override.md` files.
+- Repo-owned reinforcement state lives under `.agents/agi-codex/`.
+- Codex runtime files live under `.codex/`.
+- If you change repo behavior, update tests and any public docs in the same
+  pass.
+
+# END AGI-CODEX REPO GUIDANCE

@@ -1,0 +1,31 @@
+{
+  "version": "1.0.0",
+  "timestamp": "2026-04-24T00:00:00Z",
+  "intent": "Reinforce recruiterstack so it works cleanly with AGI-Codex and preserves the staffing funnel contract.",
+  "decisions": [
+    "Bootstrap repo-local AGI-Codex scaffolding instead of forcing a machine-wide migration.",
+    "Keep the funnel instructions in AGENTS.md primary and let AGI-Codex operate as reinforcement underneath.",
+    "Seed healing and learning state from bugs already found in browser testing."
+  ],
+  "files_modified": [
+    "AGENTS.md",
+    "README.md",
+    ".gitignore",
+    ".codex/config.toml",
+    ".codex/hooks.json",
+    ".agents/agi-codex/baseline.json",
+    ".agents/agi-codex/healing/patterns.json",
+    ".agents/agi-codex/learning/insights.json",
+    ".agents/agi-codex/learning/evolution.json"
+  ],
+  "next_steps": [
+    "Push the AGI-Codex reinforcement files once the user is happy with the repo state.",
+    "Re-run end-to-end AI planning tests after ANTHROPIC_API_KEY is configured locally."
+  ],
+  "summary_excerpt": "Recruiterstack now includes repo-local AGI-Codex hooks, skills, checkpointing, learning state, and healing patterns while preserving the plain-English staffing funnel behavior.",
+  "git_status": {
+    "branch": "main",
+    "head": "7eaa6f5",
+    "dirty_files": 8
+  }
+}

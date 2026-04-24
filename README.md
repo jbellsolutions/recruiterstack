@@ -2,7 +2,7 @@
 
 > Welcome to the rabbit hole.
 
-This repo is a **GitHub funnel for staffing and recruiting agencies**.
+This repo is **made for staffing and recruiting agencies**.
 
 Drop this repo into **Claude Code** or **Codex**, answer a few plain-English questions, and it will help you:
 
@@ -35,11 +35,15 @@ If you want us to do the heavy lifting, book an audit here:
 
 ## What To Say In Claude Code Or Codex
 
-Paste this repo link in and say something like:
+Paste this repo link in and just say:
 
-> “Welcome me to the rabbit hole and help me figure out what kind of staffing agency I am, which problems I should solve first, and what plan you recommend.”
+> “Let’s go.”
 
 Or:
+
+> “Get started.”
+
+Or, if you want to be more specific:
 
 > “We’re a healthcare staffing agency on Bullhorn. Our biggest headaches are credential expirations, recruiter follow-up, and job-order visibility. Help me prioritize and build a plan.”
 
@@ -89,6 +93,21 @@ If you run the app locally, RecruiterStack also gives you:
 - guided build flow
 - lead capture with explicit opt-ins
 - webhook-based sync into your CRM / outbound stack
+
+## Works Well With AGI-Codex
+
+This repo is now reinforced for `agi-codex` as well.
+
+That means `recruiterstack` includes:
+
+- repo-local Codex hooks under `.codex/`
+- repo-owned reinforcement state under `.agents/agi-codex/`
+- vendored AGI-Codex skills under `.agents/skills/`
+- a starting baseline for policy, runtime, and learning readiness
+- self-healing / self-learning notes seeded from real issues already found in testing
+
+This keeps the funnel repo easy to use in plain Codex, while also making it
+stronger inside a Codex-native reinforcement workflow.
 
 ## Lead Capture
 
@@ -140,6 +159,10 @@ Optional environment variables:
   Claude Code funnel behavior
 - `AGENTS.md`
   Codex funnel behavior
+- `.codex/`
+  Codex-native runtime config and hook handlers
+- `.agents/agi-codex/`
+  Repo-owned learning, healing, checkpoint, and review state
 - `src/app/plan/page.tsx`
   Guided funnel UI
 - `src/app/api/plan-chat/route.ts`

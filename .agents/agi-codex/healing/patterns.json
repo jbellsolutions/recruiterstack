@@ -1,0 +1,41 @@
+{
+  "version": "1.0.0",
+  "patterns": [
+    {
+      "id": "file-backed-local-db",
+      "title": "Use a file-backed local DB fallback, not split in-memory state",
+      "symptoms": [
+        "Project creation succeeds but the project detail page 404s immediately after redirect.",
+        "API endpoints can see data that the page route cannot."
+      ],
+      "rule": "When Turso is unavailable, resolve a concrete repo-local SQLite path and create parent directories before opening the client.",
+      "evidence": [
+        "This fixed the split-state 404 during project creation testing in recruiterstack."
+      ]
+    },
+    {
+      "id": "collision-safe-project-slugs",
+      "title": "Auto-increment duplicate project slugs",
+      "symptoms": [
+        "Repeated tests or repeated idea names fail with SQLITE_CONSTRAINT on projects.slug.",
+        "The plan page appears stuck after clicking Solve This With Me."
+      ],
+      "rule": "Check for an existing slug before insert and suffix duplicates with -2, -3, and so on.",
+      "evidence": [
+        "This fixed repeated funnel testing for AI Resume Screener in recruiterstack."
+      ]
+    },
+    {
+      "id": "fresh-browser-snapshot-after-navigation",
+      "title": "Re-snapshot after navigation during browser verification",
+      "symptoms": [
+        "Playwright or browser harness clicks a stale element ref after route changes.",
+        "A later click appears to target the wrong tab or wrong page."
+      ],
+      "rule": "Always capture a fresh snapshot after page navigation before using element references again.",
+      "evidence": [
+        "This prevented false negatives during funnel walkthrough testing."
+      ]
+    }
+  ]
+}

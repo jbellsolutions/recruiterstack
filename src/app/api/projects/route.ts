@@ -1,6 +1,26 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getProjects, createProject, getTeamStatus } from "@/lib/db";
+import { getProjects, createProject, getProject, getTeamStatus } from "@/lib/db";
 import { runPipeline } from "@/lib/pipeline";
+
+async function buildUniqueSlug(name: string): Promise<string> {
+  const baseSlug = name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")
+    .slice(0, 30);
+
+  let slug = baseSlug || "project";
+  let counter = 2;
+
+  while (await getProject(slug)) {
+    const suffix = `-${counter}`;
+    const trimmedBase = baseSlug.slice(0, Math.max(30 - suffix.length, 1)) || "project";
+    slug = `${trimmedBase}${suffix}`;
+    counter += 1;
+  }
+
+  return slug;
+}
 
 export async function GET() {
   const projects = await getProjects();
@@ -16,11 +36,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "name is required" }, { status: 400 });
   }
 
-  const slug = name
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "")
-    .slice(0, 30);
+  const slug = await buildUniqueSlug(name);
 
   // Create project in database
   await createProject({

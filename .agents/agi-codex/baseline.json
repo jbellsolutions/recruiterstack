@@ -1,0 +1,33 @@
+{
+  "version": "1.0.0",
+  "created_at": "2026-04-24T00:00:00Z",
+  "last_audited_at": "2026-04-24T00:00:00Z",
+  "scores": {
+    "policy": 91,
+    "runtime": 88,
+    "learning": 82,
+    "overall": 87
+  },
+  "iterations": [
+    {
+      "timestamp": "2026-04-24T00:00:00Z",
+      "summary": "Bootstrapped AGI-Codex reinforcement into recruiterstack and seeded repo-specific readiness notes.",
+      "evidence": [
+        "Root AGENTS.md contains funnel contract plus AGI-Codex guidance.",
+        ".codex/config.toml, hooks.json, and hook handlers are present.",
+        ".agents/agi-codex/ state exists for checkpoints, healing, learning, review, and sync.",
+        "Team-local AGI-Codex skills are vendored under .agents/skills/."
+      ],
+      "scores": {
+        "policy": 91,
+        "runtime": 88,
+        "learning": 82,
+        "overall": 87
+      },
+      "known_gaps": [
+        "Live AI funnel verification still depends on ANTHROPIC_API_KEY being configured locally.",
+        "Full repo ESLint remains noisy in legacy agents/* code outside the funnel surface."
+      ]
+    }
+  ]
+}
