@@ -4,6 +4,8 @@
 
 This repo is **made for staffing and recruiting agencies**.
 
+If your agency is buried in reqs, follow-up, screening, compliance, reporting, or recruiter overload, this resource is built to help you sort out what to fix first.
+
 Drop this repo into **Claude Code** or **Codex**, answer a few plain-English questions, and it will help you:
 
 - figure out what kind of agency you are
@@ -12,9 +14,40 @@ Drop this repo into **Claude Code** or **Codex**, answer a few plain-English que
 - turn them into a custom action plan
 - decide whether you want to solve them with AI or hand them to us for an audit
 
+This is not a generic AI repo and it is not a pile of disconnected ideas.
+
+It is a staffing-specific planning resource designed to turn operational friction into a clear next-step plan.
+
 If you want us to do the heavy lifting, book an audit here:
 
 **[aiintegraterz.com/audit](https://aiintegraterz.com/audit)**
+
+## Why Agencies Use This
+
+Most agencies do not have a software problem first. They have a clarity problem first.
+
+- too many bottlenecks at once
+- too many tools that do not talk to each other
+- too much recruiter time spent on low-value work
+- too little visibility into what should be fixed now versus later
+
+RecruiterStack is built to solve that first layer.
+
+It helps an owner, operator, recruiter, or sales leader get specific about the agency type, the workflow stack, the real bottlenecks, and the order those bottlenecks should be solved in.
+
+## What RecruiterStack Actually Does
+
+The core idea is simple:
+
+1. diagnose the agency
+2. isolate the biggest operational constraints
+3. organize them into the right order
+4. turn them into a plain-English plan
+5. help you execute that plan with AI or route it to us for an audit
+
+The goal is not to impress you with jargon.
+
+The goal is to help you leave with clarity, momentum, and a realistic next move.
 
 ## How This Resource Works
 
@@ -47,14 +80,16 @@ Or, if you want to be more specific:
 
 ## Part Of A Bigger Staffing Solution
 
-RecruiterStack is the easiest place to start, but it sits inside a broader staffing and recruiting system.
+RecruiterStack is the easiest place to start, but it sits inside a broader staffing and recruiting system built specifically for this market.
 
 - [UAIS-Staffing-AI-Vertical](https://github.com/jbellsolutions/UAIS-Staffing-AI-Vertical)
   Public-facing research, agency-type breakdowns, problem maps, solution blueprints, and staffing-specific positioning.
 - [UAIS-Staffing-Internal](https://github.com/jbellsolutions/UAIS-Staffing-Internal)
   The internal implementation layer used to operationalize delivery, builds, and execution.
 
-If you want the simplest entry point, start here. If you want to see the bigger picture behind it, those repos show the wider staffing system this resource was built from.
+If you want the simplest starting point, start here.
+
+If you want to understand the bigger operating system behind it, those repos show the wider staffing solution this resource was built from.
 
 ## The Main Agency Buckets
 
@@ -92,7 +127,7 @@ If you want the simplest entry point, start here. If you want to see the bigger 
 - Market Intelligence
 - Internal Operations & Team Management
 
-## What The App Adds
+## If You Run The App
 
 If you run the app locally, RecruiterStack also gives you:
 
@@ -116,6 +151,13 @@ That means `recruiterstack` includes:
 
 This keeps the repo easy to use in plain Codex, while also making it
 stronger inside a Codex-native reinforcement workflow.
+
+## What Makes This Useful
+
+- it starts with your actual business model, not generic AI advice
+- it organizes problems before trying to sell solutions
+- it keeps the language simple enough for non-technical teams
+- it gives you a practical path whether you want guided DIY help or a done-for-you audit
 
 ## Local Setup
 
