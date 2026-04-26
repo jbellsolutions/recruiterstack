@@ -12,6 +12,11 @@ import {
 
 export const dynamic = "force-dynamic";
 
+const WALKTHROUGH_VIDEO_URL =
+  "https://www.loom.com/share/0272afd64a1f4cf9b8ff5ba50243f662";
+const WALKTHROUGH_THUMBNAIL_URL =
+  "https://cdn.loom.com/sessions/thumbnails/0272afd64a1f4cf9b8ff5ba50243f662-8a89c25ed29bd8e6-full-play.gif#t=0.1";
+
 export default async function Dashboard() {
   const projects = await getProjects();
   const team = await getTeamStatus();
@@ -76,23 +81,18 @@ export default async function Dashboard() {
             </div>
 
             <div className="rounded-[24px] border border-blue-500/20 bg-zinc-950/80 p-5">
-              <div className="aspect-video rounded-[18px] border border-dashed border-blue-400/35 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.18),transparent_60%),rgba(3,7,18,0.85)] p-5 flex flex-col justify-between">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.22em] text-blue-300/70">
-                    Video Placeholder
-                  </p>
-                  <h2 className="text-xl font-semibold text-white mt-3">
-                    Put your walkthrough here
-                  </h2>
-                  <p className="text-sm text-zinc-400 mt-2 leading-6">
-                    Show the repo link dropped into Claude Code or Codex, the agency
-                    type selection, problem prioritization, and the finished plan.
-                  </p>
-                </div>
-                <p className="text-xs text-zinc-500">
-                  “Tell me your agency type, your ATS, and the problems eating your team alive.”
-                </p>
-              </div>
+              <a
+                href={WALKTHROUGH_VIDEO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="AI Roadmap System for Recruiting Agencies - Watch Video"
+                className="group block aspect-video overflow-hidden rounded-[18px] border border-blue-400/25 bg-zinc-900"
+              >
+                <span
+                  className="block h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-[1.03]"
+                  style={{ backgroundImage: `url(${WALKTHROUGH_THUMBNAIL_URL})` }}
+                />
+              </a>
             </div>
           </div>
         </section>

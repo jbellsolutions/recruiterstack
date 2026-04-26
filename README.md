@@ -8,9 +8,9 @@ If your agency is buried in reqs, follow-up, screening, compliance, reporting, o
 
 ## Watch The Walkthrough
 
-[![Build a Notion Orchestrator with Slack 🤖 - Watch Video](https://cdn.loom.com/sessions/thumbnails/28ecdb9843a748ce99b154fa6a071517-da22e63f4845b460-full-play.gif#t=0.1)](https://www.loom.com/share/28ecdb9843a748ce99b154fa6a071517)
+[![AI Roadmap System for Recruiting Agencies - Watch Video](https://cdn.loom.com/sessions/thumbnails/0272afd64a1f4cf9b8ff5ba50243f662-8a89c25ed29bd8e6-full-play.gif#t=0.1)](https://www.loom.com/share/0272afd64a1f4cf9b8ff5ba50243f662)
 
-[Build a Notion Orchestrator with Slack 🤖 - Watch Video](https://www.loom.com/share/28ecdb9843a748ce99b154fa6a071517)
+[AI Roadmap System for Recruiting Agencies - Watch Video](https://www.loom.com/share/0272afd64a1f4cf9b8ff5ba50243f662)
 
 **Website:** [aiintegraterz.com/audit](https://aiintegraterz.com/audit)
 
