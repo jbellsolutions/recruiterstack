@@ -117,9 +117,22 @@ export async function POST(request: Request) {
 
     const apiKey = process.env.ANTHROPIC_API_KEY;
     if (!apiKey) {
+      const incomingProblems = Array.isArray(funnelData?.selectedProblems)
+        ? funnelData.selectedProblems
+        : [];
+      const slugs = incomingProblems
+        .map((p: unknown) => (typeof p === "string" ? normalizeProblemToSlug(p) : null))
+        .filter((s: string | null): s is string => Boolean(s));
+      let recommendedAgents: string[] = [];
+      try {
+        recommendedAgents = await recommendAgentsFor(Array.from(new Set(slugs)));
+      } catch {
+        recommendedAgents = [];
+      }
       return NextResponse.json({
         reply: "I can still help you outline this manually, but the AI guide is not configured yet. Use the sidebar to capture the agency type, top problems, and your contact details, or book an audit if you want us to do the heavy lifting.",
         funnelData: DEFAULT_FUNNEL_DATA,
+        recommendedAgents,
       });
     }
 
