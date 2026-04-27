@@ -1,0 +1,35 @@
+{
+  "name": "recruiterstack",
+  "version": "0.1.0",
+  "description": "10-agent staffing agency company plugin for Paperclip. Pre-builds an org chart, agents, budgets, and routines tuned for recruiting & staffing operations.",
+  "homepage": "https://github.com/jbellsolutions/recruiterstack",
+  "company": {
+    "name": "Recruiting Agency (template)",
+    "org_chart": [
+      { "role": "head-of-recruiting", "title": "Head of Recruiting" },
+      { "role": "head-of-sales", "title": "Head of Sales" },
+      { "role": "head-of-operations", "title": "Head of Operations" }
+    ],
+    "default_monthly_budget_usd": 425
+  },
+  "agents": [
+    "agents/resume-screening.json",
+    "agents/candidate-sourcing.json",
+    "agents/client-outreach.json",
+    "agents/interview-scheduling.json",
+    "agents/compliance-monitoring.json",
+    "agents/market-intelligence.json",
+    "agents/client-health.json",
+    "agents/recruiter-productivity.json",
+    "agents/post-placement.json",
+    "agents/daily-briefing.json"
+  ],
+  "runtime": {
+    "default": "claude-code",
+    "fallback": "forge"
+  },
+  "install": {
+    "command": "npx paperclipai plugin install ./paperclip",
+    "notes": "Run from the recruiterstack repo root after `npx paperclipai onboard --yes`."
+  }
+}

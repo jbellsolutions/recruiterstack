@@ -1,0 +1,16 @@
+{
+  "$comment": "Maps PROBLEM_CATEGORIES slugs (src/lib/funnel-data.ts) to one or more agent slugs (agents/*/SPEC.md). Used by /api/plan-chat to compute recommendedAgents from the user's selectedProblems.",
+  "candidate-sourcing-pipeline": ["candidate-sourcing"],
+  "screening-qualification": ["resume-screening"],
+  "client-acquisition-sales": ["client-outreach"],
+  "job-matching-placement": ["resume-screening", "candidate-sourcing"],
+  "compliance-legal": ["compliance-monitoring"],
+  "onboarding-offboarding": ["post-placement"],
+  "billing-payroll-back-office": ["recruiter-productivity"],
+  "communication-follow-up": ["interview-scheduling", "post-placement"],
+  "reporting-analytics": ["daily-briefing"],
+  "candidate-experience": ["post-placement"],
+  "client-retention": ["client-health"],
+  "market-intelligence": ["market-intelligence"],
+  "internal-operations": ["recruiter-productivity"]
+}

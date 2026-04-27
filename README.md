@@ -1,251 +1,129 @@
 # RecruiterStack
 
-> Welcome to the rabbit hole.
+**10 AI agents that run a staffing agency's back office.**
+Drop the link in Claude Code. 5-minute conversation. Agents go live in your Paperclip dashboard.
 
-This repo is **made for staffing and recruiting agencies**.
-
-If your agency is buried in reqs, follow-up, screening, compliance, reporting, or recruiter overload, this resource is built to help you sort out what to fix first.
-
-## Watch The Walkthrough
-
-[![AI Roadmap System for Recruiting Agencies - Watch Video](https://cdn.loom.com/sessions/thumbnails/0272afd64a1f4cf9b8ff5ba50243f662-8a89c25ed29bd8e6-full-play.gif#t=0.1)](https://www.loom.com/share/0272afd64a1f4cf9b8ff5ba50243f662)
-
-[AI Roadmap System for Recruiting Agencies - Watch Video](https://www.loom.com/share/0272afd64a1f4cf9b8ff5ba50243f662)
+[![AI Roadmap System for Recruiting Agencies — Watch Video](https://cdn.loom.com/sessions/thumbnails/0272afd64a1f4cf9b8ff5ba50243f662-8a89c25ed29bd8e6-full-play.gif#t=0.1)](https://www.loom.com/share/0272afd64a1f4cf9b8ff5ba50243f662)
 
 **Website:** [aiintegraterz.com/audit](https://aiintegraterz.com/audit)
 
-Drop this repo into **Claude Code** or **Codex**, answer a few plain-English questions, and it will help you:
+---
 
-- figure out what kind of agency you are
-- identify the biggest problems worth solving first
-- prioritize them in the right order
-- turn them into a custom action plan
-- decide whether you want to solve them with AI or hand them to us for an audit
+## The 10 Agents
 
-This is not a generic AI repo and it is not a pile of disconnected ideas.
+Each agent is one file (`agents/<slug>/SPEC.md`) you can read, edit, or hand to your own team.
 
-It is a staffing-specific planning resource designed to turn operational friction into a clear next-step plan.
+| # | Agent | What it does | Runs |
+|---|---|---|---|
+| 1 | [Resume Screening](agents/resume-screening/SPEC.md) | Parses incoming resumes, ranks against the req with rationale | On new application |
+| 2 | [Candidate Sourcing](agents/candidate-sourcing/SPEC.md) | Pulls passive talent daily from boards + LinkedIn, dedups against ATS | Daily |
+| 3 | [Client Outreach](agents/client-outreach/SPEC.md) | Researches signals, drafts personalized BD emails for recruiter approval | Daily |
+| 4 | [Interview Scheduling](agents/interview-scheduling/SPEC.md) | Books interviews across candidate, recruiter, hiring manager | On demand |
+| 5 | [Compliance Monitoring](agents/compliance-monitoring/SPEC.md) | Tracks credentials, licenses, expirations 30/14/7 days out | Daily |
+| 6 | [Market Intelligence](agents/market-intelligence/SPEC.md) | Salary, demand, competitor benchmarks per specialty | Weekly |
+| 7 | [Client Health & Retention](agents/client-health/SPEC.md) | Scores accounts, flags silent erosion before churn | Daily |
+| 8 | [Recruiter Productivity](agents/recruiter-productivity/SPEC.md) | Per-recruiter scoreboards + specific weekly unblocks | Daily |
+| 9 | [Post-Placement Follow-Up](agents/post-placement/SPEC.md) | Day 1/7/30/60/90 check-ins + redeployment alerts | Daily |
+| 10 | [Analytics & Reporting](agents/daily-briefing/SPEC.md) | Aggregates everything into a one-page exec briefing | Daily |
 
-## Why Agencies Use This
+---
 
-Most agencies do not have a software problem first. They have a clarity problem first.
+## 60-second start
 
-- too many bottlenecks at once
-- too many tools that do not talk to each other
-- too much recruiter time spent on low-value work
-- too little visibility into what should be fixed now versus later
+1. Open Claude Code or Codex in any folder
+2. Paste: `github.com/jbellsolutions/recruiterstack`
+3. Say **"Let's go"**
+4. Answer 5 plain-English questions about your agency
+5. Click **Activate Agents**. Your dashboard opens at `localhost:3100`.
 
-RecruiterStack is built to solve that first layer.
+That's it. The diagnosis maps your top problems to the right subset of the 10 agents — you don't get all 10 unless you need all 10.
 
-It helps an owner, operator, recruiter, or sales leader get specific about the agency type, the workflow stack, the real bottlenecks, and the order those bottlenecks should be solved in.
+---
 
-## What RecruiterStack Actually Does
+## How it works
 
-The core idea is simple:
-
-1. diagnose the agency
-2. isolate the biggest operational constraints
-3. organize them into the right order
-4. turn them into a plain-English plan
-5. help you execute that plan with AI or route it to us for an audit
-
-The goal is not to impress you with jargon.
-
-The goal is to help you leave with clarity, momentum, and a realistic next move.
-
-## How This Resource Works
-
-1. **Start with your agency type**
-   Examples: contingency, healthcare, IT staffing, direct hire, temp/contract, MSP/VMS, executive search.
-2. **Tell us your ATS or current workflow stack**
-   Bullhorn, Crelate, Lever, spreadsheets, inbox chaos, whatever is real for you.
-3. **Pick the problems you want solved**
-   Candidate sourcing, screening, compliance, timesheets, client follow-up, reporting, recruiter burnout, and more.
-4. **Put those problems in order**
-   We help you choose what should get fixed first, second, and later.
-5. **Get a problem-by-problem plan**
-   Plain English. No technical jargon required.
-6. **Choose your path**
-   Solve it with AI step by step, or send it to us for an audit.
-
-## What To Say In Claude Code Or Codex
-
-Paste this repo link in and just say:
-
-> “Let’s go.”
-
-Or:
-
-> “Get started.”
-
-Or, if you want to be more specific:
-
-> “We’re a healthcare staffing agency on Bullhorn. Our biggest headaches are credential expirations, recruiter follow-up, and job-order visibility. Help me prioritize and build a plan.”
-
-## Part Of A Bigger Staffing Solution
-
-RecruiterStack is the easiest place to start, but it sits inside a broader staffing and recruiting system built specifically for this market.
-
-- [UAIS-Staffing-AI-Vertical](https://github.com/jbellsolutions/UAIS-Staffing-AI-Vertical)
-  Public-facing research, agency-type breakdowns, problem maps, solution blueprints, and staffing-specific positioning.
-- [UAIS-Staffing-Internal](https://github.com/jbellsolutions/UAIS-Staffing-Internal)
-  The internal implementation layer used to operationalize delivery, builds, and execution.
-
-If you want the simplest starting point, start here.
-
-If you want to understand the bigger operating system behind it, those repos show the wider staffing solution this resource was built from.
-
-## The Main Agency Buckets
-
-- Contingency Staffing
-- Retained Search
-- RPO
-- Temporary / Contract Staffing
-- Temp-to-Perm
-- Direct Hire
-- Executive Search
-- MSP / VMS
-- SOW / Consulting Staffing
-- Payrolling / EOR
-- On-Demand / Gig Platforms
-- Hybrid Staffing
-- Niche / Boutique Agencies
-- Offshore / Nearshore Staffing
-- Healthcare Staffing
-- IT / Tech Staffing
-- Light Industrial Staffing
-
-## The Main Problem Buckets
-
-- Candidate Sourcing & Pipeline
-- Screening & Qualification
-- Client Acquisition & Sales
-- Job Matching & Placement
-- Compliance & Legal
-- Onboarding & Offboarding
-- Billing, Payroll & Back Office
-- Communication & Follow-Up
-- Reporting & Analytics
-- Candidate Experience
-- Client Retention
-- Market Intelligence
-- Internal Operations & Team Management
-
-## 13 Problem Categories Solved
-
-Every automation and agent maps back to one of these core problem categories:
-
-| # | Category | Description |
-|---|---|---|
-| 1 | Candidate Sourcing & Pipeline | Automated multi-channel sourcing, passive candidate engagement, talent pool building |
-| 2 | Screening & Qualification | AI-powered resume parsing, skill matching, pre-screening interviews |
-| 3 | Client Acquisition & Sales | AI SDR outreach, lead scoring, proposal generation |
-| 4 | Job Matching & Placement | Intelligent matching algorithms, fit scoring, shortlist generation |
-| 5 | Compliance & Legal | Credential verification, license tracking, regulatory monitoring |
-| 6 | Onboarding & Offboarding | Automated document collection, orientation scheduling, exit workflows |
-| 7 | Billing, Payroll & Back Office | Invoice automation, timesheet processing, margin analysis |
-| 8 | Communication & Follow-Up | Multi-channel nurture sequences, status updates, check-ins |
-| 9 | Reporting & Analytics | Real-time dashboards, KPI tracking, predictive analytics |
-| 10 | Candidate Experience | Application status updates, feedback loops, NPS tracking |
-| 11 | Client Retention | Health scoring, proactive outreach, QBR preparation |
-| 12 | Market Intelligence | Salary benchmarking, demand forecasting, competitive analysis |
-| 13 | Internal Operations | Recruiter productivity tracking, resource allocation, training |
-
-## 10 AI Agents Included
-
-| Agent | Function | Runs |
-|---|---|---|
-| Resume Screening Agent | Parses, scores, and ranks candidates against job requirements | On submission |
-| Candidate Sourcing Agent | Scrapes job boards, LinkedIn, and databases for passive candidates | Continuous |
-| Client Outreach Agent | Generates personalized outreach sequences for prospective clients | Scheduled |
-| Interview Scheduling Agent | Coordinates availability across candidates, recruiters, and hiring managers | On demand |
-| Compliance Monitoring Agent | Tracks credentials, licenses, certifications, and regulatory deadlines | Continuous |
-| Market Intelligence Agent | Monitors salary trends, demand shifts, and competitor activity | Daily |
-| Client Health & Retention Agent | Scores client satisfaction and triggers proactive retention workflows | Weekly |
-| Recruiter Productivity Agent | Tracks KPIs, identifies bottlenecks, and recommends workflow optimizations | Real-time |
-| Post-Placement Follow-Up Agent | Manages check-ins at Day 1, 7, 30, 60, and 90 after placement | Scheduled |
-| Analytics & Reporting Agent | Aggregates data across all agents into dashboards and executive reports | On demand |
-
-## Tech Stack
-
-| Layer | Tool | Role |
-|---|---|---|
-| Primary | Claude Code | The AI Integrator's main tool. Builds custom agents, direct API integrations, complex reasoning tasks. This is what makes UAIS different. |
-| Secondary | n8n (self-hosted) | Orchestration and scheduling layer. Cron jobs, webhook receivers, visual monitoring. The agency-facing dashboard. |
-| Autonomous | OpenClaw | The Operations Hub runtime. Runs 24/7 on dedicated cloud infrastructure. |
-| Connectors | Direct ATS APIs | Bullhorn, Lever, Greenhouse, JobAdder connected via Claude Code, not middleware. |
-| Scraping | Apify | Candidate sourcing, market intelligence, company research at scale. |
-| Outbound | Instantly / Smartlead | High-deliverability cold email for client acquisition. |
-
-## If You Run The App
-
-If you run the app locally, RecruiterStack also gives you:
-
-- a clean front page built for staffing and recruiting agencies
-- a guided planning chat tuned for real staffing workflows
-- prebuilt solution cards around common agency bottlenecks
-- a direct path from problem selection to guided execution
-- optional webhook hooks for CRM, outbound, or internal systems
-
-## Works Well With AGI-Codex
-
-This repo is now reinforced for `agi-codex` as well.
-
-That means `recruiterstack` includes:
-
-- repo-local Codex hooks under `.codex/`
-- repo-owned reinforcement state under `.agents/agi-codex/`
-- vendored AGI-Codex skills under `.agents/skills/`
-- a starting baseline for policy, runtime, and learning readiness
-- self-healing / self-learning notes seeded from real issues already found in testing
-
-This keeps the repo easy to use in plain Codex, while also making it
-stronger inside a Codex-native reinforcement workflow.
-
-## What Makes This Useful
-
-- it starts with your actual business model, not generic AI advice
-- it organizes problems before trying to sell solutions
-- it keeps the language simple enough for non-technical teams
-- it gives you a practical path whether you want guided DIY help or a done-for-you audit
-
-## Local Setup
-
-```bash
-git clone <repo-url>
-cd recruiterstack
-npm install
-cp .env.example .env.local
-npm run dev
+```
+You paste link
+     ↓
+Claude Code reads the repo
+     ↓
+NL intake (agency type, ATS, top 3-5 pain points, priority)
+     ↓
+Diagnosis → recommendedAgents (subset of the 10)
+     ↓
+Activate → Paperclip auto-bootstraps if needed (npx paperclipai onboard --yes)
+     ↓
+Forge spawns each agent with its SPEC.md as the persona
+     ↓
+Paperclip dashboard at localhost:3100 shows org chart, budgets, activity
 ```
 
-Optional environment variables:
+**Three layers, each doing one job:**
 
-- `ANTHROPIC_API_KEY`
-- `TURSO_DATABASE_URL`
-- `TURSO_AUTH_TOKEN`
-- `PROSPECT_WEBHOOK_URL`
-- `PROSPECT_WEBHOOK_TOKEN`
-- `PROSPECT_WEBHOOK_NAME`
+| Layer | Tool | Job |
+|---|---|---|
+| Runtime | Claude Code / Codex | Where the agents actually think and act, on your machine, with your API key |
+| Swarm primitive | [Forge](https://github.com/jbellsolutions/forge) | Persona loading, parallel councils, self-healing, telemetry |
+| Control plane | [Paperclip](https://github.com/paperclipai/paperclip) | Org chart, budgets, schedules, governance, activity log, dashboard UI |
 
-## Files That Matter
+ATS connectors (Bullhorn, Lever, Greenhouse, Crelate), sourcing (Apify), and outbound (Instantly/Smartlead) plug into agents that need them.
 
-- `README.md`
-  Public-facing GitHub resource
-- `CLAUDE.md`
-  Claude Code conversation behavior
-- `AGENTS.md`
-  Codex conversation behavior
-- `.codex/`
-  Codex-native runtime config and hook handlers
-- `.agents/agi-codex/`
-  Repo-owned learning, healing, checkpoint, and review state
-- `src/app/plan/page.tsx`
-  Guided planning UI
-- `src/app/api/plan-chat/route.ts`
-  Planning conversation backend
-- `src/app/api/prospects/route.ts`
-  Prospect capture endpoint
+---
+
+## Local setup
+
+```bash
+git clone https://github.com/jbellsolutions/recruiterstack
+cd recruiterstack
+npm install
+cp .env.example .env.local       # add ANTHROPIC_API_KEY
+npm run dev                      # starts the planning UI on :3000
+```
+
+Then open Claude Code in the same folder and say "Let's go," or visit `localhost:3000/plan` for the web UI.
+
+To preview the Paperclip plugin without going through the planner:
+
+```bash
+npm run build:paperclip          # regenerate paperclip/agents/*.json from SPEC.md
+npx paperclipai onboard --yes    # boot Paperclip on :3100
+npx paperclipai plugin install ./paperclip
+```
+
+---
+
+## Custom agents
+
+Want an 11th agent for something specific to your agency? Add a folder under `agents/` with a `SPEC.md` matching the existing format, run `npm run build:paperclip`, and the planner will pick it up. No code change required.
+
+---
+
+## What if I don't want a dashboard?
+
+The Activate flow falls back gracefully. If Paperclip isn't running or won't boot, you get a copy-pasteable spec block per agent — exact `forge run` commands and Claude Code prompts you can run by hand.
+
+---
+
+## Part of a bigger staffing solution
+
+RecruiterStack is the easiest place to start. The full operating system behind it lives in:
+
+- [UAIS-Staffing-AI-Vertical](https://github.com/jbellsolutions/UAIS-Staffing-AI-Vertical) — research, agency-type breakdowns, problem maps, blueprints
+- [UAIS-Staffing-Internal](https://github.com/jbellsolutions/UAIS-Staffing-Internal) — the internal implementation layer for delivery and execution
+
+If you want done-for-you setup, book an audit at [aiintegraterz.com/audit](https://aiintegraterz.com/audit).
+
+---
+
+## Files that matter
+
+- `agents/<slug>/SPEC.md` — agent specs, single source of truth (10 of them)
+- `config/pain-to-agent.json` — maps problem categories → agent slugs (used by the diagnosis)
+- `orchestrator/` — TypeScript module that talks to Paperclip + Forge from the planner
+- `paperclip/manifest.json` + `paperclip/agents/*.json` — Paperclip plugin (generated)
+- `src/app/plan/page.tsx` — the planning UI with Activate Agents
+- `src/app/api/plan-chat/route.ts` — diagnosis backend (returns `recommendedAgents`)
+- `src/app/api/spawn/route.ts` — kicks off spawn into Paperclip
 
 ## License
 
