@@ -58,6 +58,15 @@ function FunnelPageInner() {
 
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
+  const [recommendedAgents, setRecommendedAgents] = useState<string[]>([]);
+  const [agentSelection, setAgentSelection] = useState<Record<string, boolean>>({});
+  const [spawning, setSpawning] = useState(false);
+  const [spawnResult, setSpawnResult] = useState<null | {
+    dashboardUrl: string;
+    paperclipRunning: boolean;
+    spawned: { slug: string; ok: boolean }[];
+    fallbacks: { slug: string; instructions: string }[];
+  }>(null);
   const [loading, setLoading] = useState(false);
   const [projectName, setProjectName] = useState("");
   const [projectBrief, setProjectBrief] = useState("");
@@ -153,6 +162,19 @@ function FunnelPageInner() {
       if (data.projectName) setProjectName(data.projectName);
       if (data.projectBrief) setProjectBrief(data.projectBrief);
       if (typeof data.readyToBuild === "boolean") setReadyToBuild(data.readyToBuild);
+      if (Array.isArray(data.recommendedAgents)) {
+        const next: string[] = data.recommendedAgents.filter(
+          (s: unknown): s is string => typeof s === "string",
+        );
+        setRecommendedAgents(next);
+        setAgentSelection((prev) => {
+          const merged: Record<string, boolean> = { ...prev };
+          for (const slug of next) {
+            if (!(slug in merged)) merged[slug] = true;
+          }
+          return merged;
+        });
+      }
       if (data.funnelData) {
         setFunnelState({
           agencyType: data.funnelData.agencyType || null,
@@ -180,6 +202,42 @@ function FunnelPageInner() {
       ]);
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function handleActivateAgents() {
+    const selected = recommendedAgents.filter((slug) => agentSelection[slug]);
+    if (selected.length === 0) return;
+    setSpawning(true);
+    setSpawnResult(null);
+    try {
+      const res = await fetch("/api/spawn", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          agents: selected,
+          context: {
+            agencyType: funnelState.agencyType,
+            ats: funnelState.ats,
+            projectName: projectName || null,
+            projectBrief: projectBrief || null,
+          },
+        }),
+      });
+      const data = await res.json();
+      setSpawnResult(data);
+      if (data?.paperclipRunning && data?.dashboardUrl) {
+        window.open(data.dashboardUrl, "_blank", "noopener");
+      }
+    } catch {
+      setSpawnResult({
+        dashboardUrl: "http://localhost:3100",
+        paperclipRunning: false,
+        spawned: [],
+        fallbacks: [],
+      });
+    } finally {
+      setSpawning(false);
     }
   }
 
@@ -510,6 +568,97 @@ function FunnelPageInner() {
               </div>
             )}
           </div>
+
+          {recommendedAgents.length > 0 && (
+            <div className="rounded-xl border border-blue-900/60 bg-blue-950/30 p-5">
+              <h2 className="text-sm font-semibold text-blue-300 uppercase tracking-wide mb-2">
+                Activate Agents
+              </h2>
+              <p className="text-sm text-zinc-300 leading-7 mb-3">
+                Based on what you picked, these are the agents that solve your top
+                problems. Activate them and they spin up in your local Paperclip
+                dashboard at <code className="text-xs">localhost:3100</code>.
+              </p>
+              <div className="space-y-2 mb-4">
+                {recommendedAgents.map((slug) => (
+                  <label
+                    key={slug}
+                    className="flex items-start gap-2 text-sm text-zinc-200"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={Boolean(agentSelection[slug])}
+                      onChange={(e) =>
+                        setAgentSelection((prev) => ({
+                          ...prev,
+                          [slug]: e.target.checked,
+                        }))
+                      }
+                      disabled={spawning}
+                    />
+                    <span className="font-mono text-xs text-blue-200">{slug}</span>
+                  </label>
+                ))}
+              </div>
+              <button
+                type="button"
+                onClick={handleActivateAgents}
+                disabled={
+                  spawning ||
+                  recommendedAgents.every((s) => !agentSelection[s])
+                }
+                className={`w-full py-3 rounded-xl text-sm font-semibold transition-colors ${
+                  spawning ||
+                  recommendedAgents.every((s) => !agentSelection[s])
+                    ? "bg-zinc-800 text-zinc-600 cursor-not-allowed"
+                    : "bg-blue-600 hover:bg-blue-500 text-white"
+                }`}
+              >
+                {spawning ? "Activating..." : "Activate Selected Agents"}
+              </button>
+
+              {spawnResult && (
+                <div className="mt-4 text-xs text-zinc-300 space-y-2">
+                  {spawnResult.paperclipRunning ? (
+                    <p className="text-green-400">
+                      Paperclip is running. Dashboard:{" "}
+                      <a
+                        href={spawnResult.dashboardUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline"
+                      >
+                        {spawnResult.dashboardUrl}
+                      </a>
+                    </p>
+                  ) : (
+                    <p className="text-amber-400">
+                      Paperclip didn&apos;t come up automatically. Run{" "}
+                      <code>npx paperclipai onboard --yes</code> in a terminal,
+                      then click Activate again.
+                    </p>
+                  )}
+                  {spawnResult.fallbacks.length > 0 && (
+                    <details className="bg-zinc-900 border border-zinc-800 rounded-lg p-3">
+                      <summary className="cursor-pointer text-zinc-400">
+                        Manual spawn instructions ({spawnResult.fallbacks.length})
+                      </summary>
+                      <div className="mt-2 space-y-3">
+                        {spawnResult.fallbacks.map((f) => (
+                          <pre
+                            key={f.slug}
+                            className="whitespace-pre-wrap text-[11px] text-zinc-300"
+                          >
+                            {f.instructions}
+                          </pre>
+                        ))}
+                      </div>
+                    </details>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
 
           {shouldShowLeadCapture && (
             <form

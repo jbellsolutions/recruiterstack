@@ -5,6 +5,25 @@ import {
   AUDIT_URL,
   PROBLEM_CATEGORIES,
 } from "@/lib/funnel-data";
+import { recommendAgentsFor } from "../../../../orchestrator/agents";
+
+function normalizeProblemToSlug(input: string): string | null {
+  const trimmed = input.trim().toLowerCase();
+  if (!trimmed) return null;
+  const bySlug = PROBLEM_CATEGORIES.find((p) => p.slug === trimmed);
+  if (bySlug) return bySlug.slug;
+  const byLabel = PROBLEM_CATEGORIES.find(
+    (p) => p.label.toLowerCase() === trimmed,
+  );
+  if (byLabel) return byLabel.slug;
+  // Loose contains match (model may write "candidate sourcing" without "& Pipeline").
+  const loose = PROBLEM_CATEGORIES.find(
+    (p) =>
+      p.label.toLowerCase().includes(trimmed) ||
+      trimmed.includes(p.label.toLowerCase()),
+  );
+  return loose?.slug ?? null;
+}
 
 const agencyTypeLabels = AGENCY_TYPES.map((item) => item.label).join(", ");
 const problemLabels = PROBLEM_CATEGORIES.map((item) => item.label).join(", ");
@@ -176,12 +195,27 @@ export async function POST(request: Request) {
       }
     }
 
+    const problemSlugs = [
+      ...parsedData.priorityOrder,
+      ...parsedData.selectedProblems,
+    ]
+      .map(normalizeProblemToSlug)
+      .filter((s): s is string => Boolean(s));
+    const uniqueSlugs = Array.from(new Set(problemSlugs));
+    let recommendedAgents: string[] = [];
+    try {
+      recommendedAgents = await recommendAgentsFor(uniqueSlugs);
+    } catch {
+      recommendedAgents = [];
+    }
+
     return NextResponse.json({
       reply,
       projectName: parsedData.projectName,
       projectBrief: parsedData.projectBrief,
       readyToBuild: parsedData.readyToBuild,
       funnelData: parsedData,
+      recommendedAgents,
     });
   } catch (error) {
     console.error("Plan chat error:", error);

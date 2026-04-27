@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+    "build": "next build && mkdir -p .next/standalone/.next && cp -R .next/static .next/standalone/.next/static && cp -R public .next/standalone/public",
+    "start": "node .next/standalone/server.js",
+    "lint": "eslint",
+    "build:paperclip": "node paperclip/build-agents.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.80.0",
